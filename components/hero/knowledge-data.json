@@ -1,0 +1,342 @@
+{
+  "subjects": [
+    {
+      "id": "physics",
+      "label": "Physics",
+      "icon": "atom",
+      "chapters": [
+        {
+          "id": "laws-of-motion",
+          "label": "Laws of Motion",
+          "topics": [
+            {
+              "id": "force",
+              "label": "Force",
+              "conceptId": "force",
+              "leaves": [
+                { "id": "force-def", "label": "Definition", "category": "definition", "relatedConceptIds": ["force", "mass", "acceleration"] },
+                { "id": "force-formula", "label": "Formula", "category": "formula", "relatedConceptIds": ["force", "mass", "acceleration", "newtons-laws"] },
+                { "id": "force-pyq", "label": "PYQs", "category": "pyq", "relatedConceptIds": ["force", "friction", "momentum"] },
+                { "id": "force-practice", "label": "Practice", "category": "practice", "relatedConceptIds": ["force"] },
+                { "id": "force-related", "label": "Related Concepts", "category": "relatedConcept", "relatedConceptIds": ["force", "momentum", "energy", "work", "friction", "gravity"] }
+              ]
+            },
+            {
+              "id": "friction",
+              "label": "Friction",
+              "conceptId": "friction",
+              "leaves": [
+                { "id": "friction-def", "label": "Definition", "category": "definition", "relatedConceptIds": ["friction", "force", "surface-tension"] },
+                { "id": "friction-formula", "label": "Formula", "category": "formula", "relatedConceptIds": ["friction", "force", "normal-force"] },
+                { "id": "friction-pyq", "label": "PYQs", "category": "pyq", "relatedConceptIds": ["friction", "motion", "force"] }
+              ]
+            },
+            {
+              "id": "momentum",
+              "label": "Momentum",
+              "conceptId": "momentum",
+              "leaves": [
+                { "id": "momentum-def", "label": "Definition", "category": "definition", "relatedConceptIds": ["momentum", "mass", "velocity"] },
+                { "id": "momentum-formula", "label": "Formula", "category": "formula", "relatedConceptIds": ["momentum", "mass", "velocity", "impulse"] },
+                { "id": "momentum-pyq", "label": "PYQs", "category": "pyq", "relatedConceptIds": ["momentum", "conservation-laws", "force"] },
+                { "id": "momentum-related", "label": "Related Concepts", "category": "relatedConcept", "relatedConceptIds": ["momentum", "impulse", "force", "conservation-laws", "energy"] }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "work-energy-power",
+          "label": "Work Energy Power",
+          "topics": [
+            {
+              "id": "work",
+              "label": "Work",
+              "conceptId": "work",
+              "leaves": [
+                { "id": "work-def", "label": "Definition", "category": "definition", "relatedConceptIds": ["work", "force", "displacement"] },
+                { "id": "work-formula", "label": "Formula", "category": "formula", "relatedConceptIds": ["work", "force", "displacement", "energy"] },
+                { "id": "work-pyq", "label": "PYQs", "category": "pyq", "relatedConceptIds": ["work", "energy", "power"] }
+              ]
+            },
+            {
+              "id": "energy-topic",
+              "label": "Energy",
+              "conceptId": "energy",
+              "leaves": [
+                { "id": "energy-def", "label": "Definition", "category": "definition", "relatedConceptIds": ["energy", "work", "kinetic-energy", "potential-energy"] },
+                { "id": "energy-formula", "label": "Formula", "category": "formula", "relatedConceptIds": ["energy", "kinetic-energy", "potential-energy", "mass", "velocity"] },
+                { "id": "energy-related", "label": "Related Concepts", "category": "relatedConcept", "relatedConceptIds": ["energy", "work", "power", "conservation-laws", "kinetic-energy", "potential-energy"] }
+              ]
+            },
+            {
+              "id": "power-topic",
+              "label": "Power",
+              "conceptId": "power",
+              "leaves": [
+                { "id": "power-def", "label": "Definition", "category": "definition", "relatedConceptIds": ["power", "work", "energy"] },
+                { "id": "power-formula", "label": "Formula", "category": "formula", "relatedConceptIds": ["power", "work", "force", "velocity"] }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "gravitation",
+          "label": "Gravitation",
+          "topics": [
+            {
+              "id": "gravity-topic",
+              "label": "Gravity",
+              "conceptId": "gravity",
+              "leaves": [
+                { "id": "gravity-def", "label": "Definition", "category": "definition", "relatedConceptIds": ["gravity", "force", "mass"] },
+                { "id": "gravity-formula", "label": "Formula", "category": "formula", "relatedConceptIds": ["gravity", "mass", "orbital-motion"] },
+                { "id": "gravity-related", "label": "Related Concepts", "category": "relatedConcept", "relatedConceptIds": ["gravity", "force", "mass", "orbital-motion", "potential-energy"] }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mathematics",
+      "label": "Mathematics",
+      "icon": "sigma",
+      "chapters": [
+        {
+          "id": "calculus",
+          "label": "Calculus",
+          "topics": [
+            {
+              "id": "derivatives-topic",
+              "label": "Derivatives",
+              "conceptId": "derivatives",
+              "leaves": [
+                { "id": "deriv-def", "label": "Definition", "category": "definition", "relatedConceptIds": ["derivatives", "limits", "rate-of-change"] },
+                { "id": "deriv-formula", "label": "Formula", "category": "formula", "relatedConceptIds": ["derivatives", "limits", "integration"] },
+                { "id": "deriv-pyq", "label": "PYQs", "category": "pyq", "relatedConceptIds": ["derivatives", "integration", "functions"] }
+              ]
+            },
+            {
+              "id": "integration-topic",
+              "label": "Integration",
+              "conceptId": "integration",
+              "leaves": [
+                { "id": "int-def", "label": "Definition", "category": "definition", "relatedConceptIds": ["integration", "derivatives", "area"] },
+                { "id": "int-formula", "label": "Formula", "category": "formula", "relatedConceptIds": ["integration", "derivatives", "limits"] }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "trigonometry",
+          "label": "Trigonometry",
+          "topics": [
+            {
+              "id": "trig-ratios",
+              "label": "Trigonometric Ratios",
+              "conceptId": "trig-ratios",
+              "leaves": [
+                { "id": "trig-def", "label": "Definition", "category": "definition", "relatedConceptIds": ["trig-ratios", "angles", "triangles"] },
+                { "id": "trig-formula", "label": "Formula", "category": "formula", "relatedConceptIds": ["trig-ratios", "angles", "unit-circle"] }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chemistry",
+      "label": "Chemistry",
+      "icon": "flask",
+      "chapters": [
+        {
+          "id": "atomic-structure",
+          "label": "Atomic Structure",
+          "topics": [
+            {
+              "id": "electron-config",
+              "label": "Electron Configuration",
+              "conceptId": "electron-config",
+              "leaves": [
+                { "id": "econfig-def", "label": "Definition", "category": "definition", "relatedConceptIds": ["electron-config", "atomic-orbitals", "quantum-numbers"] },
+                { "id": "econfig-practice", "label": "Practice", "category": "practice", "relatedConceptIds": ["electron-config", "periodic-table"] }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "chemical-bonding",
+          "label": "Chemical Bonding",
+          "topics": [
+            {
+              "id": "ionic-bonding",
+              "label": "Ionic Bonding",
+              "conceptId": "ionic-bonds",
+              "leaves": [
+                { "id": "ionic-def", "label": "Definition", "category": "definition", "relatedConceptIds": ["ionic-bonds", "electron-config", "electronegativity"] },
+                { "id": "ionic-pyq", "label": "PYQs", "category": "pyq", "relatedConceptIds": ["ionic-bonds", "covalent-bonds"] }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "concepts": [
+    { "id": "force", "label": "Force", "clusterId": "mechanics" },
+    { "id": "mass", "label": "Mass", "clusterId": "mechanics" },
+    { "id": "acceleration", "label": "Acceleration", "clusterId": "kinematics" },
+    { "id": "momentum", "label": "Momentum", "clusterId": "mechanics" },
+    { "id": "friction", "label": "Friction", "clusterId": "mechanics" },
+    { "id": "gravity", "label": "Gravity", "clusterId": "mechanics" },
+    { "id": "newtons-laws", "label": "Newton's Laws", "clusterId": "mechanics" },
+    { "id": "normal-force", "label": "Normal Force", "clusterId": "mechanics" },
+    { "id": "surface-tension", "label": "Surface Tension", "clusterId": "mechanics" },
+    { "id": "impulse", "label": "Impulse", "clusterId": "mechanics" },
+
+    { "id": "velocity", "label": "Velocity", "clusterId": "kinematics" },
+    { "id": "displacement", "label": "Displacement", "clusterId": "kinematics" },
+    { "id": "motion", "label": "Motion", "clusterId": "kinematics" },
+    { "id": "rate-of-change", "label": "Rate of Change", "clusterId": "kinematics" },
+
+    { "id": "energy", "label": "Energy", "clusterId": "energy" },
+    { "id": "work", "label": "Work", "clusterId": "energy" },
+    { "id": "power", "label": "Power", "clusterId": "energy" },
+    { "id": "kinetic-energy", "label": "Kinetic Energy", "clusterId": "energy" },
+    { "id": "potential-energy", "label": "Potential Energy", "clusterId": "energy" },
+    { "id": "conservation-laws", "label": "Conservation Laws", "clusterId": "energy" },
+
+    { "id": "orbital-motion", "label": "Orbital Motion", "clusterId": "waves-fields" },
+
+    { "id": "derivatives", "label": "Derivatives", "clusterId": "calculus" },
+    { "id": "integration", "label": "Integration", "clusterId": "calculus" },
+    { "id": "limits", "label": "Limits", "clusterId": "calculus" },
+    { "id": "functions", "label": "Functions", "clusterId": "calculus" },
+    { "id": "area", "label": "Area", "clusterId": "calculus" },
+
+    { "id": "trig-ratios", "label": "Trig Ratios", "clusterId": "geometry" },
+    { "id": "angles", "label": "Angles", "clusterId": "geometry" },
+    { "id": "triangles", "label": "Triangles", "clusterId": "geometry" },
+    { "id": "unit-circle", "label": "Unit Circle", "clusterId": "geometry" },
+
+    { "id": "electron-config", "label": "Electron Config", "clusterId": "atomic" },
+    { "id": "atomic-orbitals", "label": "Atomic Orbitals", "clusterId": "atomic" },
+    { "id": "quantum-numbers", "label": "Quantum Numbers", "clusterId": "atomic" },
+    { "id": "periodic-table", "label": "Periodic Table", "clusterId": "atomic" },
+    { "id": "electronegativity", "label": "Electronegativity", "clusterId": "atomic" },
+
+    { "id": "ionic-bonds", "label": "Ionic Bonds", "clusterId": "bonding" },
+    { "id": "covalent-bonds", "label": "Covalent Bonds", "clusterId": "bonding" }
+  ],
+  "relationships": [
+    { "source": "force", "target": "mass", "strength": 0.95 },
+    { "source": "force", "target": "acceleration", "strength": 0.95 },
+    { "source": "force", "target": "momentum", "strength": 0.7 },
+    { "source": "force", "target": "friction", "strength": 0.6 },
+    { "source": "force", "target": "gravity", "strength": 0.65 },
+    { "source": "force", "target": "newtons-laws", "strength": 0.9 },
+    { "source": "force", "target": "work", "strength": 0.7 },
+    { "source": "force", "target": "normal-force", "strength": 0.6 },
+
+    { "source": "momentum", "target": "mass", "strength": 0.85 },
+    { "source": "momentum", "target": "velocity", "strength": 0.85 },
+    { "source": "momentum", "target": "impulse", "strength": 0.8 },
+    { "source": "momentum", "target": "conservation-laws", "strength": 0.75 },
+
+    { "source": "friction", "target": "normal-force", "strength": 0.7 },
+    { "source": "friction", "target": "surface-tension", "strength": 0.5 },
+    { "source": "friction", "target": "motion", "strength": 0.6 },
+
+    { "source": "energy", "target": "work", "strength": 0.9 },
+    { "source": "energy", "target": "kinetic-energy", "strength": 0.85 },
+    { "source": "energy", "target": "potential-energy", "strength": 0.85 },
+    { "source": "energy", "target": "conservation-laws", "strength": 0.8 },
+    { "source": "energy", "target": "power", "strength": 0.7 },
+
+    { "source": "work", "target": "displacement", "strength": 0.75 },
+    { "source": "work", "target": "power", "strength": 0.7 },
+
+    { "source": "kinetic-energy", "target": "velocity", "strength": 0.8 },
+    { "source": "kinetic-energy", "target": "mass", "strength": 0.7 },
+    { "source": "potential-energy", "target": "gravity", "strength": 0.75 },
+
+    { "source": "gravity", "target": "mass", "strength": 0.8 },
+    { "source": "gravity", "target": "orbital-motion", "strength": 0.6 },
+
+    { "source": "velocity", "target": "displacement", "strength": 0.8 },
+    { "source": "velocity", "target": "acceleration", "strength": 0.85 },
+
+    { "source": "derivatives", "target": "limits", "strength": 0.9 },
+    { "source": "derivatives", "target": "integration", "strength": 0.85 },
+    { "source": "derivatives", "target": "rate-of-change", "strength": 0.8 },
+    { "source": "derivatives", "target": "functions", "strength": 0.7 },
+    { "source": "integration", "target": "area", "strength": 0.75 },
+    { "source": "integration", "target": "limits", "strength": 0.7 },
+
+    { "source": "trig-ratios", "target": "angles", "strength": 0.9 },
+    { "source": "trig-ratios", "target": "triangles", "strength": 0.85 },
+    { "source": "trig-ratios", "target": "unit-circle", "strength": 0.8 },
+
+    { "source": "electron-config", "target": "atomic-orbitals", "strength": 0.9 },
+    { "source": "electron-config", "target": "quantum-numbers", "strength": 0.85 },
+    { "source": "electron-config", "target": "periodic-table", "strength": 0.7 },
+    { "source": "electron-config", "target": "electronegativity", "strength": 0.6 },
+
+    { "source": "ionic-bonds", "target": "electron-config", "strength": 0.75 },
+    { "source": "ionic-bonds", "target": "electronegativity", "strength": 0.8 },
+    { "source": "ionic-bonds", "target": "covalent-bonds", "strength": 0.7 },
+
+    { "source": "acceleration", "target": "rate-of-change", "strength": 0.6 },
+    { "source": "velocity", "target": "rate-of-change", "strength": 0.65 }
+  ],
+  "clusters": [
+    {
+      "id": "mechanics",
+      "label": "Mechanics",
+      "conceptIds": ["force", "mass", "momentum", "friction", "gravity", "newtons-laws", "normal-force", "surface-tension", "impulse"],
+      "relatedClusterIds": ["kinematics", "energy"]
+    },
+    {
+      "id": "kinematics",
+      "label": "Kinematics",
+      "conceptIds": ["velocity", "acceleration", "displacement", "motion", "rate-of-change"],
+      "relatedClusterIds": ["mechanics", "calculus"]
+    },
+    {
+      "id": "energy",
+      "label": "Energy",
+      "conceptIds": ["energy", "work", "power", "kinetic-energy", "potential-energy", "conservation-laws"],
+      "relatedClusterIds": ["mechanics"]
+    },
+    {
+      "id": "waves-fields",
+      "label": "Waves & Fields",
+      "conceptIds": ["orbital-motion"],
+      "relatedClusterIds": ["mechanics", "energy"]
+    },
+    {
+      "id": "calculus",
+      "label": "Calculus",
+      "conceptIds": ["derivatives", "integration", "limits", "functions", "area"],
+      "relatedClusterIds": ["kinematics"]
+    },
+    {
+      "id": "geometry",
+      "label": "Geometry",
+      "conceptIds": ["trig-ratios", "angles", "triangles", "unit-circle"],
+      "relatedClusterIds": ["calculus"]
+    },
+    {
+      "id": "atomic",
+      "label": "Atomic Structure",
+      "conceptIds": ["electron-config", "atomic-orbitals", "quantum-numbers", "periodic-table", "electronegativity"],
+      "relatedClusterIds": ["bonding"]
+    },
+    {
+      "id": "bonding",
+      "label": "Chemical Bonding",
+      "conceptIds": ["ionic-bonds", "covalent-bonds"],
+      "relatedClusterIds": ["atomic"]
+    }
+  ]
+}

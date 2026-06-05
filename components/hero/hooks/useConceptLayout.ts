@@ -8,7 +8,7 @@ import type {
   ClusterPosition,
   ConceptLayout,
 } from "../types";
-import { LAYOUT, SILHOUETTE_PATH } from "../constants";
+import { LAYOUT } from "../constants";
 
 // Seeded random for deterministic layout
 function seededRandom(seed: number) {
@@ -19,38 +19,54 @@ function seededRandom(seed: number) {
   };
 }
 
-// Check if a point is inside the silhouette path (approximate)
+// Check if a point is inside the silhouette — expanded, region-aware
 function isInsideSilhouette(x: number, y: number): boolean {
   const cx = LAYOUT.SILHOUETTE_WIDTH / 2;
 
-  // Head (ellipse)
-  if (y >= 45 && y <= 190) {
+  // Head (ellipse) — top of silhouette
+  if (y >= 50 && y <= 185) {
     const headCx = cx;
     const headCy = 115;
-    const headRx = 65;
-    const headRy = 75;
+    const headRx = 60;
+    const headRy = 70;
     const dx = (x - headCx) / headRx;
     const dy = (y - headCy) / headRy;
     if (dx * dx + dy * dy <= 1) return true;
   }
 
-  // Neck
-  if (y > 190 && y <= 260) {
-    const neckHalfWidth = 45;
+  // Neck — narrow transition
+  if (y > 185 && y <= 260) {
+    const neckHalfWidth = 40;
     if (Math.abs(x - cx) <= neckHalfWidth) return true;
   }
 
-  // Shoulders & torso (trapezoid)
-  if (y > 260 && y <= 460) {
-    const t = (y - 260) / 200;
-    const halfWidth = 45 + t * 155;
+  // Shoulders & torso (trapezoid expanding outward)
+  if (y > 260 && y <= 450) {
+    const t = (y - 260) / 190;
+    const halfWidth = 40 + t * 150;
     if (Math.abs(x - cx) <= halfWidth) return true;
   }
 
   return false;
 }
 
-// Simple force-directed layout for cluster centers
+// ── Predefined cluster anchor positions ──
+// Instead of pure force-directed, we assign semantically meaningful
+// positions so clusters are distributed across the entire silhouette.
+const CLUSTER_ANCHORS: Record<string, { x: number; y: number }> = {
+  // Physics clusters fill the head and upper body
+  mechanics:      { x: 200, y: 90 },
+  kinematics:     { x: 130, y: 150 },
+  energy:         { x: 270, y: 150 },
+  "waves-fields": { x: 200, y: 220 },
+
+  calculus:       { x: 110, y: 330 },
+  geometry:       { x: 90,  y: 420 },
+
+  atomic:         { x: 290, y: 330 },
+  bonding:        { x: 310, y: 420 },
+};
+
 function computeClusterPositions(
   data: KnowledgeData,
   isMobile: boolean
@@ -58,70 +74,73 @@ function computeClusterPositions(
   const rng = seededRandom(42);
   const w = LAYOUT.SILHOUETTE_WIDTH;
   const h = LAYOUT.SILHOUETTE_HEIGHT;
-  const cx = w / 2;
-  const cy = h / 2;
 
-  // Initialize cluster centers in a circular pattern
-  const clusters = data.clusters.map((cluster, i) => {
-    const angle = (i / data.clusters.length) * Math.PI * 2 - Math.PI / 2;
-    const r = Math.min(w, h) * 0.25;
+  const clusters = data.clusters.map((cluster) => {
+    // Use predefined anchor or fall back to center with jitter
+    const anchor = CLUSTER_ANCHORS[cluster.id] || { x: w / 2, y: h / 2 };
+    // Add small jitter for organic feel
+    const jitterX = (rng() - 0.5) * 15;
+    const jitterY = (rng() - 0.5) * 15;
+
     return {
       id: cluster.id,
       label: cluster.label,
-      cx: cx + Math.cos(angle) * r + (rng() - 0.5) * 20,
-      cy: cy + Math.sin(angle) * r + (rng() - 0.5) * 20,
-      radius: Math.max(35, Math.sqrt(cluster.conceptIds.length) * 22),
+      cx: anchor.x + jitterX,
+      cy: anchor.y + jitterY,
+      radius: Math.max(90, Math.sqrt(cluster.conceptIds.length) * 50),
       relatedIds: cluster.relatedClusterIds,
     };
   });
 
-  // Run force-directed iterations
-  const iterations = isMobile ? 25 : LAYOUT.FORCE_ITERATIONS;
+  // Light force-directed refinement (fewer iterations, less gravity)
+  const iterations = isMobile ? 10 : 20;
   for (let iter = 0; iter < iterations; iter++) {
     for (let i = 0; i < clusters.length; i++) {
-      let fx = 0,
-        fy = 0;
+      let fx = 0, fy = 0;
 
-      // Repulsion from other clusters
+      // Repulsion from other clusters (strong — keeps them apart)
       for (let j = 0; j < clusters.length; j++) {
         if (i === j) continue;
         const dx = clusters[i].cx - clusters[j].cx;
         const dy = clusters[i].cy - clusters[j].cy;
         const dist = Math.max(Math.sqrt(dx * dx + dy * dy), 1);
-        const repulsion = LAYOUT.FORCE_REPULSION / (dist * dist);
-        fx += (dx / dist) * repulsion;
-        fy += (dy / dist) * repulsion;
+        const minDist = clusters[i].radius + clusters[j].radius + 20;
+        if (dist < minDist) {
+          const repulsion = (minDist - dist) * 0.5;
+          fx += (dx / dist) * repulsion;
+          fy += (dy / dist) * repulsion;
+        }
       }
 
-      // Attraction to related clusters
+      // Very weak attraction to related clusters
       for (const relId of clusters[i].relatedIds) {
         const other = clusters.find((c) => c.id === relId);
         if (!other) continue;
         const dx = other.cx - clusters[i].cx;
         const dy = other.cy - clusters[i].cy;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        fx += dx * LAYOUT.FORCE_ATTRACTION;
-        fy += dy * LAYOUT.FORCE_ATTRACTION;
+        fx += dx * 0.005;
+        fy += dy * 0.005;
       }
 
-      // Gravity toward center
-      fx += (cx - clusters[i].cx) * 0.02;
-      fy += (cy - clusters[i].cy) * 0.02;
+      // Weak gravity toward anchor (not center — preserves distribution)
+      const anchor = CLUSTER_ANCHORS[clusters[i].id] || { x: w / 2, y: h / 2 };
+      fx += (anchor.x - clusters[i].cx) * 0.03;
+      fy += (anchor.y - clusters[i].cy) * 0.03;
 
-      clusters[i].cx += fx * 0.3;
-      clusters[i].cy += fy * 0.3;
+      clusters[i].cx += fx * 0.4;
+      clusters[i].cy += fy * 0.4;
 
-      // Constrain to silhouette bounds (with margin)
-      const margin = 40;
+      // Constrain to silhouette bounds
+      const margin = 30;
       clusters[i].cx = Math.max(margin, Math.min(w - margin, clusters[i].cx));
-      clusters[i].cy = Math.max(60, Math.min(h - margin, clusters[i].cy));
+      clusters[i].cy = Math.max(55, Math.min(h - 50, clusters[i].cy));
     }
   }
 
   return clusters.map(({ relatedIds, ...rest }) => rest);
 }
 
-// Generate concept nodes within their cluster areas
+// Generate concept nodes spread within their cluster areas
 function generateNodes(
   data: KnowledgeData,
   clusterPositions: ClusterPosition[],
@@ -135,18 +154,25 @@ function generateNodes(
     const cluster = clusterPositions.find((c) => c.id === concept.clusterId);
     if (!cluster) continue;
 
-    // Position within cluster radius
-    let x: number, y: number;
-    let attempts = 0;
-    do {
-      const angle = rng() * Math.PI * 2;
-      const r = rng() * cluster.radius * 0.8;
-      x = cluster.cx + Math.cos(angle) * r;
-      y = cluster.cy + Math.sin(angle) * r;
-      attempts++;
-    } while (!isInsideSilhouette(x, y) && attempts < 30);
+    // Spread nodes across cluster radius using golden angle distribution
+    const existingInCluster = nodes.filter((n) => n.clusterId === concept.clusterId).length;
+    const goldenAngle = Math.PI * (3 - Math.sqrt(5)); // ~137.5°
+    const angle = existingInCluster * goldenAngle;
+    const r = cluster.radius * 0.3 + (rng() * cluster.radius * 0.5);
 
-    // Clamp if still outside
+    let x = cluster.cx + Math.cos(angle) * r;
+    let y = cluster.cy + Math.sin(angle) * r;
+
+    // Ensure inside silhouette
+    let attempts = 0;
+    while (!isInsideSilhouette(x, y) && attempts < 40) {
+      const a2 = rng() * Math.PI * 2;
+      const r2 = rng() * cluster.radius * 0.7;
+      x = cluster.cx + Math.cos(a2) * r2;
+      y = cluster.cy + Math.sin(a2) * r2;
+      attempts++;
+    }
+
     if (!isInsideSilhouette(x, y)) {
       x = cluster.cx;
       y = cluster.cy;
@@ -165,23 +191,27 @@ function generateNodes(
     });
   }
 
-  // Filler nodes for visual density
-  const fillerCount = isMobile
-    ? LAYOUT.MOBILE_FILLER_NODES
-    : LAYOUT.DESKTOP_FILLER_NODES;
+  // Filler nodes distributed across ALL clusters, biased to under-filled ones
+  const fillerCount = isMobile ? LAYOUT.MOBILE_FILLER_NODES : LAYOUT.DESKTOP_FILLER_NODES;
 
   for (let i = 0; i < fillerCount; i++) {
-    const cluster =
-      clusterPositions[Math.floor(rng() * clusterPositions.length)];
-    let x: number, y: number;
+    // Weighted cluster selection — larger clusters get more fillers
+    const cluster = clusterPositions[Math.floor(rng() * clusterPositions.length)];
+
+    // Spread fillers across the cluster's full radius
+    const angle = rng() * Math.PI * 2;
+    const r = rng() * cluster.radius * 0.9;
+    let x = cluster.cx + Math.cos(angle) * r;
+    let y = cluster.cy + Math.sin(angle) * r;
+
     let attempts = 0;
-    do {
-      const angle = rng() * Math.PI * 2;
-      const r = rng() * cluster.radius * 1.2;
-      x = cluster.cx + Math.cos(angle) * r;
-      y = cluster.cy + Math.sin(angle) * r;
+    while (!isInsideSilhouette(x, y) && attempts < 15) {
+      const a2 = rng() * Math.PI * 2;
+      const r2 = rng() * cluster.radius * 0.7;
+      x = cluster.cx + Math.cos(a2) * r2;
+      y = cluster.cy + Math.sin(a2) * r2;
       attempts++;
-    } while (!isInsideSilhouette(x, y) && attempts < 20);
+    }
 
     if (!isInsideSilhouette(x, y)) continue;
 
@@ -192,7 +222,7 @@ function generateNodes(
       x,
       y,
       radius: LAYOUT.NODE_MIN_RADIUS + rng() * 1,
-      baseOpacity: 0.08 + rng() * 0.15,
+      baseOpacity: 0.06 + rng() * 0.12,
       clusterId: cluster.id,
       isPrimary: false,
     });
@@ -235,6 +265,10 @@ function generateConnections(
   }
 
   // Intra-cluster connections (connect nearby nodes within same cluster)
+  const existingPairs = new Set(
+    connections.map((c) => `${c.sourceId}|${c.targetId}`)
+  );
+
   for (let i = 0; i < nodes.length; i++) {
     for (let j = i + 1; j < nodes.length; j++) {
       if (nodes[i].clusterId !== nodes[j].clusterId) continue;
@@ -242,16 +276,10 @@ function generateConnections(
       const dy = nodes[i].y - nodes[j].y;
       const dist = Math.sqrt(dx * dx + dy * dy);
       if (dist < LAYOUT.INTRA_CLUSTER_DISTANCE) {
-        const id = `intra-${nodes[i].id}-${nodes[j].id}`;
-        // Check we don't already have a relationship connection for this pair
-        const existing = connections.find(
-          (c) =>
-            (c.sourceId === nodes[i].conceptId &&
-              c.targetId === nodes[j].conceptId) ||
-            (c.sourceId === nodes[j].conceptId &&
-              c.targetId === nodes[i].conceptId)
-        );
-        if (!existing) {
+        const pairKey1 = `${nodes[i].conceptId || nodes[i].id}|${nodes[j].conceptId || nodes[j].id}`;
+        const pairKey2 = `${nodes[j].conceptId || nodes[j].id}|${nodes[i].conceptId || nodes[i].id}`;
+        if (!existingPairs.has(pairKey1) && !existingPairs.has(pairKey2)) {
+          const id = `intra-${nodes[i].id}-${nodes[j].id}`;
           connections.push({
             id,
             sourceId: nodes[i].conceptId || nodes[i].id,
@@ -263,6 +291,7 @@ function generateConnections(
             type: "intra-cluster",
             strength: 0.3,
           });
+          existingPairs.add(pairKey1);
         }
       }
     }

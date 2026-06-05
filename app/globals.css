@@ -24,3 +24,90 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* ════════════════════════════════════════════
+   Hero Section Animations
+   ════════════════════════════════════════════ */
+
+/* Concept node breathing — subtle scale + opacity pulse */
+@keyframes concept-pulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.15); }
+}
+
+.hero-concept-breathe {
+  animation: concept-pulse 4s ease-in-out infinite;
+  animation-delay: calc(var(--i, 0) * 0.3s);
+}
+
+/* Subtle drift for nodes */
+@keyframes concept-drift {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(0.5px, -0.8px); }
+  50% { transform: translate(-0.3px, 0.5px); }
+  75% { transform: translate(0.4px, 0.3px); }
+}
+
+/* Hub pulse ring expansion */
+@keyframes hub-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+/* Silhouette draw animation (stroke-dashoffset) */
+.hero-silhouette-draw {
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+  animation: silhouette-draw 2s ease-out forwards;
+  animation-delay: 1s;
+}
+
+@keyframes silhouette-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Ambient floating particles */
+.hero-ambient-particle {
+  animation: ambient-float linear infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes ambient-float {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.15;
+  }
+  50% {
+    transform: translateY(-30vh) translateX(10px);
+    opacity: 0.1;
+  }
+  90% {
+    opacity: 0.05;
+  }
+  100% {
+    transform: translateY(-60vh) translateX(-5px);
+    opacity: 0;
+  }
+}
+
+/* Chain activation glow */
+@keyframes chain-glow {
+  0% { filter: drop-shadow(0 0 2px rgba(255,255,255,0.4)); }
+  100% { filter: drop-shadow(0 0 0px rgba(255,255,255,0)); }
+}
+
+/* Particle trail glow */
+@keyframes particle-glow {
+  0%, 100% { filter: drop-shadow(0 0 1px rgba(255,255,255,0.3)); }
+  50% { filter: drop-shadow(0 0 3px rgba(255,255,255,0.5)); }
+}
+

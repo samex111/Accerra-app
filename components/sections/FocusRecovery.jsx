@@ -38,7 +38,7 @@ export function FocusRecovery() {
             variants={fadeUp}
             className="text-xl text-[#111827]/60 font-light leading-relaxed max-w-md"
           >
-            Accerra helps students recover focus during difficult study sessions
+            Aceraa helps students recover focus during difficult study sessions
             without guilt. We detect distraction before it turns into
             frustration.
           </motion.p>

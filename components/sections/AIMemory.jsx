@@ -29,7 +29,7 @@ export function AIMemory() {
             how you learn.
           </h2>
           <p className="text-lg text-[#111827]/50 font-light">
-            Every session is a data point. Accerra builds a long-term memory of
+            Every session is a data point. Aceraa builds a long-term memory of
             your cognitive patterns to optimize your path.
           </p>
         </motion.div>

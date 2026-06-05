@@ -36,7 +36,7 @@ export function BentoFeatures() {
           variants={fadeUp}
           className="text-4xl md:text-5xl font-light tracking-tight"
         >
-          How <span className="font-cormorant-garamond italic">Accerra</span>{" "}
+          How <span className="font-cormorant-garamond italic">Aceraa</span>{" "}
           thinks.
         </motion.h2>
       </div>

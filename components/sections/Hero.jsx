@@ -113,7 +113,7 @@ export function Hero() {
           Understand how students actually learn  <br/> 
           not just what they score. <br />
           {/* Instead of forcing students to adapt to the platform,<br />
-Accerra aims to adapt the platform to the student */}
+Aceraa aims to adapt the platform to the student */}
         </motion.p>
 
         <motion.div

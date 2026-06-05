@@ -38,7 +38,7 @@ export function Navbar() {
       >
         <div className="flex items-center gap-2">
           <span className="text-xl font-medium tracking-tight font-cormorant-garamond italic">
-            Accerra
+            Aceraa
           </span>
         </div>
 
@@ -82,7 +82,7 @@ export function Navbar() {
           >
             <div className="flex justify-between items-center mb-16">
               <span className="text-2xl font-medium font-cormorant-garamond italic">
-                Accerra
+                Aceraa
               </span>
               <button onClick={() => setMobileMenuOpen(false)}>
                 <X size={24} />

@@ -516,7 +516,7 @@ pt-40
                 tracking-wide
               "
             >
-              © 2026 Accerra Intelligence
+              © 2026 Aceraa Intelligence
               Systems
             </p>
 

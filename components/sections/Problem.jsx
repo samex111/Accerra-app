@@ -37,7 +37,7 @@ export function Problem() {
             sustain long-term preparation.
           </p>
           <p className="text-xl text-white/60 font-light leading-relaxed">
-            Accerra monitors the "how" of learning. We track the silent
+            Aceraa monitors the "how" of learning. We track the silent
             breakdowns that lead to burnout before they happen.
           </p>
         </motion.div>

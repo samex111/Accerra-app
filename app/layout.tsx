@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Accerra",
-  description: "A platfrom that understands student to think cleary and learn faster",
+  title: "Aceraa",
+  description: "Building the Intelligence Layer for Every Student",
 };
 export default function RootLayout( { children }: { children: React.ReactNode }) {
   return (

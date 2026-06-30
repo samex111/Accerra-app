@@ -9,6 +9,8 @@ import { FinalCTA } from "@/components/sections/FinalCTA";
 import { Footer } from "@/components/sections/Footer";
 import { HeroSection } from "@/components/hero";
 import Image from "next/image";
+import AboutAceraa from "@/components/sections/AboutAceraa";
+import AboutWordmark from "@/components/sections/AboutAceraa";
 
 export default function LandingPage() {
   return (
@@ -32,6 +34,7 @@ export default function LandingPage() {
       <AIMemory />
       <Research />
       <FinalCTA />
+      <AboutWordmark></AboutWordmark>
       <Footer />
     </main>
   );

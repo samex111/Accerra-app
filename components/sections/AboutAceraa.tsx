@@ -4,14 +4,14 @@ import { useEffect, useState } from 'react';
 
 // ─── SMJ: people, delegates, community ──────────────────────────────────────
 const SMJ_IMAGES = [
-  '/images/community.jpeg',
-  '/images/smj-hero-6.jpeg',
-  '/images/community-2.jpeg',
-  '/images/smj-hero-9.jpeg',
+  '/flower-image-1.png',
+  '/hero-anime.png',
+  '/flower-image-2.png',
+  
 ];
 
 // ─── MUN: institutional, formal, legacy ─────────────────────────────────────
-const MUN_IMAGE = '/images/tree-colour-5.png';
+const MUN_IMAGE = '/hero-anime.png';
 
 const INTERVAL_MS = 1000;
 const FADE_MS = 800;
@@ -54,11 +54,11 @@ function SMJLetters({ activeIndex }: { activeIndex: number }) {
             filter: 'saturate(1.4) brightness(1.05)',
           }}
         >
-          Ace
+          ACE
         </span>
       ))}
       {/* Render text for layout/sizing (invisible) */}
-      <span style={{ visibility: 'hidden' }} aria-hidden>SMJ</span>
+      <span style={{ visibility: 'hidden' }} aria-hidden>ACE</span>
     </span>
   );
 }
@@ -117,7 +117,7 @@ export default function AboutWordmark() {
               display: 'inline-block',
             }}
           >
-            raa
+            RAA
           </span>
         </div>
 
@@ -126,7 +126,7 @@ export default function AboutWordmark() {
           className="mt-8 text-center text-[#7A7A7A] text-sm tracking-[0.08em] max-w-md"
           style={{ fontFamily: 'var(--font-body), system-ui, sans-serif' }}
         >
-          Shaping India&apos;s next generation of global leaders since 2023.
+       Building the intelligence layer for the next generation of learners.
         </p>
       </div>
 

@@ -1,143 +1,44 @@
-// ── Leaf category determines particle behavior ──
-export type LeafCategory =
-  | "definition"
-  | "formula"
-  | "pyq"
-  | "practice"
-  | "relatedConcept";
+import type { ComponentType, SVGProps } from "react";
 
-// ── Knowledge Data JSON Schema ──
-
-export interface KnowledgeData {
-  subjects: SubjectNode[];
-  concepts: ConceptNode[];
-  relationships: Relationship[];
-  clusters: ClusterDefinition[];
-}
-
-export interface SubjectNode {
+/**
+ * A floating glass card ("LinkedIn Followers", "Post Engagers", etc).
+ * Position is expressed as a percentage of the 734x405 reference frame,
+ * so it lines up 1:1 with the SVG network underneath at any viewport size.
+ */
+export interface FloatingCardData {
   id: string;
   label: string;
-  icon: string;
-  chapters: ChapterNode[];
+  /** Accepts lucide-react icons as well as plain SVG components (e.g. LinkedinIcon). */
+  icon: ComponentType<SVGProps<SVGSVGElement>>;
+  /** left/top/width as % of the section's reference frame (734x405) */
+  left: number;
+  top: number;
+  width: number;
+  /** stagger delay (seconds) for the entrance animation */
+  delay: number;
 }
 
-export interface ChapterNode {
+/**
+ * A single connection from a floating card into the center logo card.
+ * `d` is authored directly in the viewBox coordinate space.
+ */
+export interface NetworkPathData {
   id: string;
-  label: string;
-  topics: TopicNode[];
+  d: string;
+  /** delay (seconds) before the flowing "packet" animation starts. All
+   *  paths that should arrive together must share the same delay. */
+  delay: number;
+  /** set false for a purely static connector (no traveling dash) — used
+   *  by the mobile cross-connectors, which don't carry their own flow. */
+  animated?: boolean;
+  /** points (in viewBox space) where a pulsing connection dot should sit */
+  dots: { id: string; cx: number; cy: number; delay: number }[];
 }
 
-export interface TopicNode {
-  id: string;
-  label: string;
-  conceptId: string;
-  leaves: LeafNode[];
-}
+export const REFERENCE_WIDTH = 734;
+export const REFERENCE_HEIGHT = 405;
 
-export interface LeafNode {
-  id: string;
-  label: string;
-  category: LeafCategory;
-  relatedConceptIds?: string[];
-}
-
-export interface ConceptNode {
-  id: string;
-  label: string;
-  clusterId: string;
-}
-
-export interface Relationship {
-  source: string;
-  target: string;
-  strength: number;
-}
-
-export interface ClusterDefinition {
-  id: string;
-  label: string;
-  conceptIds: string[];
-  relatedClusterIds: string[];
-}
-
-// ── Hero State ──
-
-export interface HeroState {
-  expandedPath: string[];
-  hoveredNodeId: string | null;
-  hoveredLeafCategory: LeafCategory | null;
-  particleIntensity: number;
-  particleCategory: LeafCategory | null;
-  illuminatedConcepts: string[];
-  activationChain: string[];
-  isMobile: boolean;
-  scrollY: number;
-}
-
-// ── Particle System ──
-
-export type ParticleBehavior =
-  | "stable"
-  | "precise"
-  | "energetic"
-  | "steady"
-  | "branching";
-
-export interface ParticleProfile {
-  speed: number;
-  size: number;
-  opacity: number;
-  behavior: ParticleBehavior;
-}
-
-export interface Particle {
-  id: number;
-  pathIndex: number;
-  progress: number; // 0-1 along the path
-  speed: number;
-  size: number;
-  opacity: number;
-  behavior: ParticleBehavior;
-}
-
-// ── Concept Layout (Intelligence Graph) ──
-
-export interface LayoutNode {
-  id: string;
-  conceptId: string;
-  label: string;
-  x: number;
-  y: number;
-  radius: number;
-  baseOpacity: number;
-  clusterId: string;
-  isPrimary: boolean; // true = has visible label
-}
-
-export interface LayoutConnection {
-  id: string;
-  sourceId: string;
-  targetId: string;
-  x1: number;
-  y1: number;
-  x2: number;
-  y2: number;
-  type: "intra-cluster" | "cross-cluster";
-  strength: number;
-}
-
-export interface ClusterPosition {
-  id: string;
-  label: string;
-  cx: number;
-  cy: number;
-  radius: number;
-}
-
-export interface ConceptLayout {
-  nodes: LayoutNode[];
-  connections: LayoutConnection[];
-  clusterPositions: ClusterPosition[];
-  getRelatedConcepts: (conceptId: string) => string[];
-}
+/** Mobile uses its own simpler trunk-and-branches layout (see data.ts),
+ *  authored in its own coordinate space rather than a scaled-down 734x405. */
+export const MOBILE_REFERENCE_WIDTH = 433;
+export const MOBILE_REFERENCE_HEIGHT = 320;
